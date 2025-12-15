@@ -5,6 +5,15 @@
         public int Id { get; set; }
         public string Descripcion { get; set; } = string.Empty;
 
+        public decimal Monto { get; set; }
+
+        public decimal CostoFinancieroTotal { get; set; }
+
+        public DateTime FechaVencimiento { get; set; }
+
+        public bool EstaVencida => DateTime.Now > FechaVencimiento;
+
+
     }
 
 }
