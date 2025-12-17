@@ -13,7 +13,7 @@ namespace FinanzasPersonales.API.Controllers
         { new Deuda
         {
             Id = 1,
-            Descripcion = "Préstamo personal",
+            Descripcion = "Préstamo personal MercadoPago",
             MontoOriginal =200000m,
             Monto = 400565.13m,
             CostoFinancieroTotal = 320.07m,
@@ -22,7 +22,7 @@ namespace FinanzasPersonales.API.Controllers
         new Deuda
         {
             Id = 2,
-            Descripcion = "Préstamo personal",
+            Descripcion = "Préstamo personal MercadoPago2",
             MontoOriginal =29000m,
             Monto = 58020.79m,
             CostoFinancieroTotal = 320.07m,
