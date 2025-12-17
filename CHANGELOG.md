@@ -3,6 +3,17 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [v0.3.0] - Conexión a Base de Datos - 2025-12-17
+### Agregado
+* **Persistencia Real:** Se conectó la API a una base de datos SQL Server (LocalDB). Ahora los datos sobreviven al reinicio de la aplicación.
+* **ORM:** Se implementó **Entity Framework Core** como traductor entre C# y SQL.
+* **Infraestructura:** Se creó la tabla `Deudas` y se configuró la inyección de dependencias en `Program.cs` y `appsettings.json`.
+
+### Cambiado
+* **Controlador:** Se eliminó la lista `static` (memoria RAM) de `DeudasController` y se reemplazó por llamadas asíncronas (`async/await`) a la base de datos.
+
+
+
 ## [v0.2.0] - Persistencia en Memoria - 2025-12-17
 ### Agregado
 * **Endpoint POST:** Se habilitó la creación de nuevas deudas mediante `POST /api/Deudas`.

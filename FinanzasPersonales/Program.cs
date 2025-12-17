@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using FinanzasPersonales.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+// CONEXIÓN A BASE DE DATOS
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
