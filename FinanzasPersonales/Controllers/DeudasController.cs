@@ -33,26 +33,26 @@ namespace FinanzasPersonales.API.Controllers
             return deuda;
         }
 
-        // DELETE: api/Deudas/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDeuda(int id)
         {
-            // 1. Buscamos la deuda
+
             var deuda = await _context.Deudas.FindAsync(id);
 
-            // 2. Si no existe, error 404
+
             if (deuda == null)
             {
                 return NotFound();
             }
 
-            // 3. Si existe, la removemos del contexto
+
             _context.Deudas.Remove(deuda);
 
-            // 4. Confirmamos los cambios en la Base de Datos
+
             await _context.SaveChangesAsync();
 
-            // 5. Devolvemos "Sin Contenido" (Código 204 - Éxito silencioso)
+
             return NoContent();
         }
 
@@ -67,5 +67,38 @@ namespace FinanzasPersonales.API.Controllers
             return CreatedAtAction(nameof(Get), new { id = nuevaDeuda.Id }, nuevaDeuda);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutDeuda(int id, Deuda deuda)
+        {
+            if (id != deuda.Id)
+            {
+                return BadRequest();
+            }
+            _context.Entry(deuda).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DeudaExists(id))
+                {
+                    return NotFound();
+
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
+
+            return NoContent();
+
+        }
+        private bool DeudaExists(int id)
+        {
+            return _context.Deudas.Any(e => e.Id == id);
+        }
     }
 }
