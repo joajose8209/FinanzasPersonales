@@ -3,6 +3,16 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [2025-12-22]
+### Añadido
+- Método `PutDeuda` en `DeudasController` para permitir la actualización de registros existentes.
+- Método auxiliar `DeudaExists` para validaciones de concurrencia.
+
+### Corregido
+- Solucionado error de mapeo en JSON: Los campos `nombre` y `fecha` ahora se reciben correctamente como `descripcion` y `fechaVencimiento` para coincidir con la base de datos SQL.
+- Solucionado conflicto de tipos de datos `datetime` vs `datetime2` asegurando el envío de fechas válidas en el JSON.
+
+
 ## [v0.3.0] - Conexión a Base de Datos - 2025-12-17
 ### Agregado
 * **Persistencia Real:** Se conectó la API a una base de datos SQL Server (LocalDB). Ahora los datos sobreviven al reinicio de la aplicación.

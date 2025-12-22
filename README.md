@@ -1,22 +1,44 @@
 ﻿# Finanzas Personales API 💰
 
 API RESTful desarrollada con .NET Core para la gestión de deudas y finanzas personales.
-Este proyecto documenta mi transición profesional de la gestión comercial al desarrollo de software, aplicando buenas prácticas de arquitectura y tipado fuerte.
+
+Este proyecto documenta mi transición profesional de la gestión comercial al desarrollo de software, aplicando buenas prácticas de arquitectura, inyección de dependencias y persistencia de datos real.
 
 ## 🚀 Tecnologías
-* **Lenguaje:** C# (.NET 8/9)
-* **Tipo de Proyecto:** Web API
-* **Datos:** SQL Server (Próximamente) / Entity Framework Core
+* **Lenguaje:** C# (.NET 8)
+* **Framework:** ASP.NET Core Web API
+* **ORM:** Entity Framework Core
+* **Base de Datos:** SQL Server (LocalDB)
+* **Herramientas:** Swagger/OpenAPI, Visual Studio 2022
 
-## 📅 Bitácora de Cambios (Changelog)
+## ✅ Funcionalidades (Estado del Proyecto)
+
+El sistema cuenta actualmente con un **CRUD completo** para la entidad de Deudas:
+
+- [x] **Create:** Registro de nuevas deudas con validación de tipos de datos.
+- [x] **Read:** Listado general y búsqueda específica por ID.
+- [x] **Update:** Actualización de montos y estados (con validación de concurrencia).
+- [x] **Delete:** Eliminación física de registros en base de datos.
+- [x] **Lógica de Negocio:** Cálculo automático de vencimientos.
+
+## 🗂 Estructura de Datos (Modelo: Deuda)
+
+La entidad principal gestiona la siguiente información financiera:
+* `Monto` y `CostoFinancieroTotal` (Decimales para precisión monetaria).
+* `FechaVencimiento` (Mapeo preciso con SQL Server).
+* `Descripcion` (Detalle de la obligación).
+
+## 📅 Historial de Versiones Destacado
+
+### [v0.2.0] - Persistencia y CRUD Completo - 2025-12-22
+**Hitos alcanzados:**
+* Conexión exitosa a **SQL Server** mediante **Entity Framework Core**.
+* Implementación de **DeudasController** con todos los verbos HTTP (GET, POST, PUT, DELETE).
+* Manejo de excepciones y códigos de estado HTTP correctos (201 Created, 204 No Content, 404 NotFound).
+* Solución de conflictos de tipos de datos (DateTime vs DateTime2).
 
 ### [v0.1.0] - Estructura Inicial - 2025-12-15
-**Agregado**
-* Configuración inicial del proyecto en Visual Studio 2022 con soporte HTTPS y OpenAPI (Swagger).
-* **Modelo `Deuda`:** Definición de la entidad principal.
-    * Se decidió usar `decimal` en lugar de `float` para `Monto` y `CostoFinancieroTotal` para garantizar precisión financiera.
-    * Implementación de `FechaVencimiento` y propiedad calculada `EstaVencida` para lógica de negocio automática.
-* Integración con GitHub para control de versiones.
+* Configuración inicial del proyecto y modelo de datos en memoria.
 
 ---
 *Autor: Jose Armando Lopez*
