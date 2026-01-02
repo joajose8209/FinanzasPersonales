@@ -2,6 +2,8 @@
 using FinanzasPersonales.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FinanzasPersonales.API.Dtos;
+
 namespace FinanzasPersonales.API.Controllers
 {
     [ApiController]
@@ -15,7 +17,6 @@ namespace FinanzasPersonales.API.Controllers
             _context = context;
         }
 
-
         [HttpGet]
         public async Task<IEnumerable<Deuda>> Get()
         {
@@ -23,82 +24,76 @@ namespace FinanzasPersonales.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Deuda>> GetDeuda(int id)
+        public async Task<ActionResult<DeudaDto>> GetDeuda(int id)
         {
             var deuda = await _context.Deudas.FindAsync(id);
             if (deuda == null)
             {
                 return NotFound();
             }
-            return deuda;
+
+            // CORRECCIÓN 1: Agregué el punto y coma final
+            var dto = new DeudaDto
+            {
+                Id = deuda.Id,
+                Descripcion = deuda.Descripcion,
+                Monto = deuda.Monto,
+                FechaVencimiento = deuda.FechaVencimiento,
+                EstaVencida = deuda.FechaVencimiento < DateTime.Today
+            };
+
+            return dto;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CrearDeuda(CrearDeudaDto dto)
+        {
+            var deudaReal = new Deuda
+            {
+                Descripcion = dto.Descripcion,
+                MontoOriginal = dto.Monto,
+                Monto = dto.Monto,
+                FechaVencimiento = dto.FechaVencimiento
+            };
+            _context.Deudas.Add(deudaReal);
+            await _context.SaveChangesAsync();
+            return Ok(deudaReal);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDeuda(int id)
         {
-
             var deuda = await _context.Deudas.FindAsync(id);
-
 
             if (deuda == null)
             {
                 return NotFound();
             }
 
-
             _context.Deudas.Remove(deuda);
-
-
             await _context.SaveChangesAsync();
-
 
             return NoContent();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Deuda nuevaDeuda)
-        {
-            if (nuevaDeuda == null) return BadRequest();
-
-            _context.Deudas.Add(nuevaDeuda);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(Get), new { id = nuevaDeuda.Id }, nuevaDeuda);
-        }
-
+        // CORRECCIÓN 2: Reemplacé PutDeuda por ActualizarDeuda y agregué las llaves { }
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDeuda(int id, Deuda deuda)
+        public async Task<IActionResult> ActualizarDeuda(int id, ActualizarDeudaDto dto)
         {
-            if (id != deuda.Id)
-            {
-                return BadRequest();
-            }
-            _context.Entry(deuda).State = EntityState.Modified;
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DeudaExists(id))
-                {
-                    return NotFound();
+            var deuda = await _context.Deudas.FindAsync(id);
 
-                }
-                else
-                {
-                    throw;
-                }
-
+            if (deuda == null)
+            {
+                return NotFound();
             }
 
+            deuda.Descripcion = dto.Descripcion;
+            deuda.Monto = dto.Monto;
+            deuda.FechaVencimiento = dto.FechaVencimiento;
+
+            await _context.SaveChangesAsync();
             return NoContent();
+        }
 
-        }
-        private bool DeudaExists(int id)
-        {
-            return _context.Deudas.Any(e => e.Id == id);
-        }
-    }
-}
+    } // Fin de la clase
+} // Fin del namespace
