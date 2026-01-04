@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Elementos de la solución/">
     <File Path="CHANGELOG.md" />
+    <File Path="MANIFESTO.md" />
     <File Path="README.md" />
   </Folder>
   <Project Path="FinanzasPersonales/FinanzasPersonales.csproj" />
