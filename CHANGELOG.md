@@ -3,6 +3,18 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [2026-01-04] - Seguridad e Integridad de Datos
+### Añadido
+- **Manifesto del Desarrollador:** Creación de `MANIFESTO.md` con los 6 principios rectores del proyecto.
+- **DTOs de Seguridad:** Implementación de `ActualizarDeudaDto`, `DeudaDto` y `RegistrarPagoDto` para proteger la entidad de dominio.
+- **Validaciones (Data Annotations):**
+  - Reglas de negocio para `CrearDeudaDto` y `ActualizarDeudaDto` (Required, StringLength, Range).
+  - Pruebas de seguridad realizadas en Swagger (respuestas 400 Bad Request confirmadas).
+- **Refactorización:** Limpieza del `DeudasController` para usar los nuevos DTOs.
+
+### Pendiente
+- Implementación de la lógica en `PagosController` (Estructura definida, código pendiente).
+
 ## [2025-12-22]
 ### Añadido
 - Método `PutDeuda` en `DeudasController` para permitir la actualización de registros existentes.
