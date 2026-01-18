@@ -32,7 +32,7 @@ namespace FinanzasPersonales.API.Controllers
                 return NotFound();
             }
 
-            // CORRECCIÓN 1: Agregué el punto y coma final
+            
             var dto = new DeudaDto
             {
                 Id = deuda.Id,
@@ -76,7 +76,7 @@ namespace FinanzasPersonales.API.Controllers
             return NoContent();
         }
 
-        // CORRECCIÓN 2: Reemplacé PutDeuda por ActualizarDeuda y agregué las llaves { }
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarDeuda(int id, ActualizarDeudaDto dto)
         {
@@ -95,5 +95,5 @@ namespace FinanzasPersonales.API.Controllers
             return NoContent();
         }
 
-    } // Fin de la clase
-} // Fin del namespace
+    } 
+} 

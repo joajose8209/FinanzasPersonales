@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FinanzasPersonales.API.Models;
 using FinanzasPersonales.API.Dtos;
 using FinanzasPersonales.Data;
 
@@ -25,9 +26,15 @@ namespace FinanzasPersonales.API.Controllers
             {
                 return BadRequest(" El pago no puede ser superior al monto de la deuda");
             }
-
+            var nuevoPago = new Pago
             {
-            }
+                DeudaId = pagoDto.DeudaId,
+                Monto = pagoDto.Monto,
+                MedioPago = pagoDto.MedioPago,
+                FechaPago = pagoDto.FechaDePago
+            };
+            _context.Pagos.Add(nuevoPago);
+
 
             deuda.Monto -= pagoDto.Monto;
             if (deuda.Monto < 0)
@@ -43,6 +50,17 @@ namespace FinanzasPersonales.API.Controllers
 
                 DeudaSaldada = deuda.Monto == 0
             });
+        }
+
+
+
+        [HttpGet("{deudaId}")]
+        public async Task<ActionResult<List<Pago>>> ObtenerPagos(int deudaId)
+        {
+            var pagos = await _context.Pagos
+                .Where(p => p.DeudaId == deudaId)
+                .ToListAsync();
+            return Ok(pagos);
         }
 
 

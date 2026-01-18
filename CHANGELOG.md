@@ -3,6 +3,27 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [2026-01-17] - Gestión de Pagos
+### Añadido 🚀
+- Endpoint `POST /api/Pagos`: Permite registrar nuevos pagos validando la existencia de la deuda.
+- Endpoint `GET /api/Pagos/{deudaId}`: Permite consultar el historial de pagos filtrado por deuda.
+- Lógica de negocio para descontar el monto pagado del saldo de la deuda.
+
+
+## [2026-01-16] 
+
+### Added
+- Creación de la tabla `Pagos` en la base de datos con la estructura definida (Id, DeudaId, Monto, MedioPago, FechaPago).
+
+### Fixed
+- Solucionado conflicto de migración: la tabla `Pagos` existía en el *Snapshot* de EF pero no en la base de datos real.
+
+## [2026-01-07] - Lógica de Negocio en Pagos
+### Añadido
+- **Controlador de Pagos:** Creación de `PagosController` con inyección de dependencias.
+- **Lógica de Transacción:** Implementación del método `RegistrarPago` para descontar montos.
+- **Reglas de Negocio:** Validación para rechazar pagos que superen el monto de la deuda (Integridad de datos).
+
 ## [2026-01-04] - Seguridad e Integridad de Datos
 ### Añadido
 - **Manifesto del Desarrollador:** Creación de `MANIFESTO.md` con los 6 principios rectores del proyecto.
