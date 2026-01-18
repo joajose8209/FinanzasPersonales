@@ -16,7 +16,16 @@ namespace FinanzasPersonales.API.Controllers
         { _context = context; }
         [HttpPost]
         public async Task<IActionResult> RegistrarPago([FromBody] RegistrarPagoDto pagoDto)
-        {
+        {   if(pagoDto.FechaDePago > DateTime.Now)
+            {
+                return BadRequest(" La fecha de pago no puede ser futura");
+            }
+           
+            if (pagoDto.Monto <= 0)
+            {
+                return BadRequest(" El pago no puede ser  cero o negativo");
+            }
+
             var deuda = await _context.Deudas.FindAsync(pagoDto.DeudaId);
             if (deuda == null)
             {
@@ -25,7 +34,11 @@ namespace FinanzasPersonales.API.Controllers
             if (pagoDto.Monto > deuda.Monto)
             {
                 return BadRequest(" El pago no puede ser superior al monto de la deuda");
+
+
+
             }
+
             var nuevoPago = new Pago
             {
                 DeudaId = pagoDto.DeudaId,
@@ -36,11 +49,14 @@ namespace FinanzasPersonales.API.Controllers
             _context.Pagos.Add(nuevoPago);
 
 
+
+
             deuda.Monto -= pagoDto.Monto;
             if (deuda.Monto < 0)
             {
                 deuda.Monto = 0;
             }
+
 
             await _context.SaveChangesAsync();
             return Ok(new

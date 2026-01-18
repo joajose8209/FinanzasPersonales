@@ -3,6 +3,11 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [2026-01-18]
+[Seguridad] Implementación de validaciones para asegurar la  Integridad de Datos (evitando montos negativos y fechas futuras).
+[Rendimiento] Optimización del endpoint mediante el patrón Fail-Fast para reducir llamadas innecesarias a la base de datos.
+
+
 ## [2026-01-17] - Gestión de Pagos
 ### Añadido 🚀
 - Endpoint `POST /api/Pagos`: Permite registrar nuevos pagos validando la existencia de la deuda.
