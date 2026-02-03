@@ -1,5 +1,14 @@
 ﻿namespace FinanzasPersonales.API.Models
 {
+    public enum TipoDeuda
+    {
+        NumeroCuotas,
+        Fijo,
+        Bimestral,
+        Variable
+
+
+    }
     public class Deuda
     {
         public int Id { get; set; }
@@ -15,6 +24,21 @@
 
         public bool EstaVencida => DateTime.Now > FechaVencimiento;
 
+        public TipoDeuda Tipo { get; set; }
+
+        public bool EsGastoRecurrente()
+        {
+            if (Tipo == TipoDeuda.Fijo || Tipo == TipoDeuda.Bimestral)
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
     }
 
