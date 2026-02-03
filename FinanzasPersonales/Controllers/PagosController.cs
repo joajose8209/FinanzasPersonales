@@ -14,13 +14,15 @@ namespace FinanzasPersonales.API.Controllers
         private readonly AppDbContext _context;
         public PagosController(AppDbContext context)
         { _context = context; }
+
         [HttpPost]
         public async Task<IActionResult> RegistrarPago([FromBody] RegistrarPagoDto pagoDto)
-        {   if(pagoDto.FechaDePago > DateTime.Now)
+        {
+            if (pagoDto.FechaDePago > DateTime.Now)
             {
                 return BadRequest(" La fecha de pago no puede ser futura");
             }
-           
+
             if (pagoDto.Monto <= 0)
             {
                 return BadRequest(" El pago no puede ser  cero o negativo");
@@ -75,8 +77,18 @@ namespace FinanzasPersonales.API.Controllers
         {
             var pagos = await _context.Pagos
                 .Where(p => p.DeudaId == deudaId)
+                .Select(p => new PagoDto
+                {
+                    Monto = p.Monto,
+                    FechaPago = p.FechaPago,
+                    DeudaDescripcion = p.Deuda  !=null ?p.Deuda.Descripcion : string.Empty,
+
+                }) 
+
                 .ToListAsync();
             return Ok(pagos);
+
+
         }
 
 

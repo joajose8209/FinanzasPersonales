@@ -7,6 +7,8 @@ namespace FinanzasPersonales.API.Models
         public int Id { get; set; }
        
         public int DeudaId { get; set; }
+        
+        public Deuda? Deuda { get; set; }
 
         public decimal Monto { get; set; }
 

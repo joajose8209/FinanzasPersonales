@@ -18,9 +18,21 @@ namespace FinanzasPersonales.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Deuda>> Get()
+        public async Task<ActionResult<IEnumerable<DeudaDto>>> Get()
+
         {
-            return await _context.Deudas.ToListAsync();
+            var deudas = await _context.Deudas
+             .Select(d => new DeudaDto
+             {
+                 Id = d.Id,
+                 Descripcion = d.Descripcion,
+                 Monto = d.Monto,
+                 FechaVencimiento = d.FechaVencimiento,
+                 EstaVencida = d.FechaVencimiento < DateTime.Today,
+
+             })
+             .ToListAsync();
+            return Ok(deudas);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +44,7 @@ namespace FinanzasPersonales.API.Controllers
                 return NotFound();
             }
 
-            
+
             var dto = new DeudaDto
             {
                 Id = deuda.Id,
@@ -76,7 +88,7 @@ namespace FinanzasPersonales.API.Controllers
             return NoContent();
         }
 
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarDeuda(int id, ActualizarDeudaDto dto)
         {
@@ -95,5 +107,5 @@ namespace FinanzasPersonales.API.Controllers
             return NoContent();
         }
 
-    } 
-} 
+    }
+}
