@@ -34,6 +34,19 @@ namespace FinanzasPersonales.API.Controllers
              .ToListAsync();
             return Ok(deudas);
         }
+        [HttpGet("total")]
+        public async Task<ActionResult<decimal>> ObtenerTotal()
+        {
+            var listaDeudas = await _context.Deudas.ToListAsync();
+            decimal total = 0;
+            foreach(var deuda in listaDeudas)
+            {
+                total += deuda.Monto;
+                
+            }
+            return Ok(total);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<DeudaDto>> GetDeuda(int id)
