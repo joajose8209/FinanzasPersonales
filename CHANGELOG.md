@@ -3,6 +3,10 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+### [2026-02-04]
+- **Nueva Funcionalidad:** Se implementó el endpoint `GET /api/deudas/total` para calcular la suma de todas las deudas activas.
+- **Corrección Técnica:** Se aplicó la migración `AgregarTipoDeuda` para solucionar el error de columna faltante en la base de datos.
+
 ### [2026-02-03]
 - **Nueva Funcionalidad:** Ahora el sistema puede distinguir entre diferentes tipos de deuda (Fija, Bimestral, Variable, etc.) gracias a la implementación de `TipoDeuda`.
 - **Mejora Lógica:** Se agregó la capacidad de detectar automáticamente si un gasto es recurrente (`EsGastoRecurrente`), lo que servirá para calcular presupuestos mensuales con mayor precisión.

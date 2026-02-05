@@ -40,8 +40,11 @@ namespace FinanzasPersonales.API.Controllers
             var listaDeudas = await _context.Deudas.ToListAsync();
             decimal total = 0;
             foreach(var deuda in listaDeudas)
-            {
-                total += deuda.Monto;
+            {   if (deuda.EsGastoRecurrente())
+                {
+
+                    total += deuda.Monto;
+                }
                 
             }
             return Ok(total);
