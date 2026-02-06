@@ -39,15 +39,32 @@ namespace FinanzasPersonales.API.Controllers
         {
             var listaDeudas = await _context.Deudas.ToListAsync();
             decimal total = 0;
-            foreach(var deuda in listaDeudas)
-            {   if (deuda.EsGastoRecurrente())
+            foreach (var deuda in listaDeudas)
+            {
+                if (deuda.EsGastoRecurrente())
                 {
 
                     total += deuda.Monto;
                 }
-                
+
             }
             return Ok(total);
+        }
+        [HttpGet("simulacion")]
+        public ActionResult<List<string>> SimularPlan()
+        {
+            decimal deuda = 100000;
+            decimal cuota = 5000;
+            int meses = 0;
+            var historialDePagos = new List<string>();
+
+            while (deuda > 0)
+            {
+                deuda -= cuota;
+                meses++;
+                historialDePagos.Add($"Cuota nro: {meses} $5000");
+            }
+            return Ok(historialDePagos);
         }
 
 

@@ -3,6 +3,10 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+
+### [2026-02-05]
+
+- - - **Mejora de Lógica:** Se actualizó el endpoint `GET /api/deudas/total` para que calcule únicamente el total de los gastos recurrentes, excluyendo las deudas puntuales.
 ### [2026-02-04]
 - **Nueva Funcionalidad:** Se implementó el endpoint `GET /api/deudas/total` para calcular la suma de todas las deudas activas.
 - **Corrección Técnica:** Se aplicó la migración `AgregarTipoDeuda` para solucionar el error de columna faltante en la base de datos.
