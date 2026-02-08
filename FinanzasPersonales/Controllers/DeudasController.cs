@@ -51,21 +51,29 @@ namespace FinanzasPersonales.API.Controllers
             return Ok(total);
         }
         [HttpGet("simulacion")]
-        public ActionResult<List<string>> SimularPlan()
+        public ActionResult<List<string>> SimularPlan(decimal deuda, decimal cuota)
         {
-            decimal deuda = 100000;
-            decimal cuota = 5000;
             int meses = 0;
             var historialDePagos = new List<string>();
-
             while (deuda > 0)
             {
-                deuda -= cuota;
+                decimal pagoDelMes;
+
+                if (deuda < cuota)
+                {
+                    pagoDelMes = deuda; // Pagamos todo lo que falta
+                }
+                else
+                {
+                    pagoDelMes = cuota; // Pagamos la cuota normal
+                }
+
+                deuda -= pagoDelMes;
                 meses++;
-                historialDePagos.Add($"Cuota nro: {meses} $5000");
+                historialDePagos.Add($"Cuota nro {meses}: ${pagoDelMes}");
             }
             return Ok(historialDePagos);
-        }
+        } 
 
 
         [HttpGet("{id}")]

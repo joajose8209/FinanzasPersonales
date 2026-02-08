@@ -4,6 +4,9 @@ Todas las modificaciones notables a este proyecto serán documentadas en este ar
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 
+### [2026-02-06]
+- **Nueva Funcionalidad:** Se agregó el endpoint `GET /api/deudas/simulacion` que permite proyectar un plan de pagos mes a mes hasta saldar una deuda.
+
 ### [2026-02-05]
 
 - - - **Mejora de Lógica:** Se actualizó el endpoint `GET /api/deudas/total` para que calcule únicamente el total de los gastos recurrentes, excluyendo las deudas puntuales.
