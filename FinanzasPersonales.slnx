@@ -4,5 +4,6 @@
     <File Path="MANIFESTO.md" />
     <File Path="README.md" />
   </Folder>
+  <Project Path="FinanzasPersonales.Tests/FinanzasPersonales.Tests.csproj" />
   <Project Path="FinanzasPersonales/FinanzasPersonales.csproj" />
 </Solution>
