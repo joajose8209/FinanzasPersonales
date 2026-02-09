@@ -73,7 +73,7 @@ namespace FinanzasPersonales.API.Controllers
                 historialDePagos.Add($"Cuota nro {meses}: ${pagoDelMes}");
             }
             return Ok(historialDePagos);
-        } 
+        }
 
 
         [HttpGet("{id}")]
@@ -108,11 +108,18 @@ namespace FinanzasPersonales.API.Controllers
                 Monto = dto.Monto,
                 FechaVencimiento = dto.FechaVencimiento
             };
-            _context.Deudas.Add(deudaReal);
-            await _context.SaveChangesAsync();
-            return Ok(deudaReal);
-        }
+            try
+            {
+                _context.Deudas.Add(deudaReal);
+                await _context.SaveChangesAsync();
+                return Ok(deudaReal);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocurrió un error inesperado. Por favor, intente más tarde: {ex.Message}");
 
+            }
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDeuda(int id)
         {
